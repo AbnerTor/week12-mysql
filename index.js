@@ -402,9 +402,9 @@ const removeEmployee = () => {
         promptUser();
     })
 };
-// const viewDeptBudget =() =>{
-//     //figure this out later
-// }
+const viewDeptBudget =() =>{
+    //figure this out later
+}
 connection.connect((err) => {
     if (err) throw err;
     promptUser();
