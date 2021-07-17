@@ -26,13 +26,13 @@ This project covered under a MIT License.
 ## Description
 
 This is a command line interface that allows a person to keep track of employees by inputing data such as salary, department, and manager information.
-![Screenshot](assets/appss.PNG)
+![Screenshot](assets/appss1.PNG)
 Here it is in action: https://drive.google.com/file/d/17dxecByxUngnvfgH32V9F4nFkTZiQiZt/view
 
 
 ## Tests
 
-THhe following instructions are how to run tests on this program: Clone this repo, run 'npm install',  after that all that is left is to type in 'node index.js' into the console, and the user will be prompted with a menu. 
+THe following instructions are how to run tests on this program: Clone this repo, run 'npm install',  after that all that is left is to type in 'node index.js' into the console, and the user will be prompted with a menu. 
 
 
 
