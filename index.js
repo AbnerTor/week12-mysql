@@ -87,7 +87,6 @@ const addEmployee = () => {
             name: "empFirstName",
             type: "input",
             message: "What is this employee's first name?",
-            // Validates that the user did not leave this field blank
             validate: function (answer) {
                 if (answer === "") {
                     console.log("Employee must have a first name.");
@@ -101,7 +100,6 @@ const addEmployee = () => {
             name: "empLastName",
             type: "input",
             message: "What is this employee's last name?",
-            // Validates that the user put in a last name for the employee
             validate: function (answer) {
                 if (answer === "") {
                     console.log("Employee must have a last name.");
@@ -112,19 +110,17 @@ const addEmployee = () => {
             }
         },
     ]).then((answer) => {
-        // queries the database for the existing roles 
         empFirstName = answer.empFirstName;
         empLastName = answer.empLastName;
 
         connection.query(`SELECT id, title FROM role`, (err, res) => {
             if (err) {
-                throw (err);
+                console.log(error);
             } else {
                 let roleArr = [];
                 let roleMap = {};
                 let selectedRoleId;
                 let selectedRole;
-                // iterates through the existing roles and pushes them into an array and a map useable by the inquirer prompt
                 for (i = 0; i < res.length; i++) {
                     let roleTitle = res[i].title;
                     roleArr.push(roleTitle);
@@ -140,18 +136,16 @@ const addEmployee = () => {
                 ]).then((answer) => {
                     selectedRoleId = roleMap[answer.empRole];
                     selectedRole = answer.empRole;
-                    // queries the database for the existing employees
                     connection.query(
                         `SELECT e.id, e.first_name, e.last_name 
                 FROM employee AS e`
                         , (err, res) => {
                             if (err) {
-                                throw (err);
+                                console.log(error);
                             } else {
                                 let managerArr = [];
                                 let managerMap = {};
                                 let managerName;
-                                // iterates through the existing employees and pushes them into an array and their ids into a map useable by the inquirer prompt
                                 for (i = 0; i < res.length; i++) {
                                     managerName = res[i].first_name + " " + res[i].last_name;
                                     managerArr.push(managerName);
@@ -173,7 +167,6 @@ const addEmployee = () => {
                             VALUES ("${empFirstName}", "${empLastName}", ${selectedRoleId}, ${managerMap[answer.empManager]})`, (err, res) => {
                                         if (err) throw err;
 
-                                        // Confirms via the console that the new employe has been added
                                         console.log(`\n ${empFirstName} ${empLastName} has been added to the company as a(n) ${selectedRole}.\n `);
                                         promptUser();
                                     })
@@ -192,7 +185,7 @@ const viewEmployees = () => {
     connection.query(
         `SELECT e.id, e.first_name, e.last_name, r.title, r.salary,COALESCE( CONCAT(m.first_name, " ", m.last_name),'') AS manager FROM employee AS e LEFT JOIN role AS r ON e.role_id = r.id LEFT JOIN department AS d ON r.department_id = d.id LEFT JOIN employee AS m ON m.id = e.manager_id`, (err, res) => {
             if (err) {
-                throw (err);
+                console.log(error);
             } else {
                 console.table(res);
                 promptUser();
@@ -230,7 +223,7 @@ const viewDepartments = () => {
     connection.query(
         `SELECT * FROM department`, (err, res) => {
             if (err) {
-                throw (err);
+                console.log(error);
             } else {
                 console.table(res);
                 promptUser();
@@ -297,7 +290,6 @@ const addRole = () => {
     })
 };
 
-// Function to view the roles of all employees
 const viewRoles = () => {
     connection.query(
         `SELECT r.id, r.title, e.first_name, e.last_name
@@ -305,7 +297,7 @@ const viewRoles = () => {
     LEFT JOIN department AS d ON d.id = r.department_id
     LEFT JOIN employee AS e on r.id = e.role_id`, (err, res) => {
         if (err) {
-            throw (err);
+            console.log(error);
         } else {
             console.table(res);
             promptUser();
@@ -313,13 +305,12 @@ const viewRoles = () => {
     })
 };
 
-// Function to update the rolls of an employee
 const updateEmployeeRole = () => {
     connection.query(
         `SELECT e.id, e.first_name, e.last_name 
         FROM employee AS e`, (err, res) => {
         if (err) {
-            throw (err);
+            console.log(error);
         } else {
             let empArr = [];
             let empMap = {};
@@ -345,7 +336,7 @@ const updateEmployeeRole = () => {
 
                 connection.query(`SELECT title FROM role`, (err, res) => {
                     if (err) {
-                        throw (err);
+                        console.log(error);
                     } else {
                         let roleArr = [];
                         let roleMap = {};
@@ -381,7 +372,7 @@ const removeEmployee = () => {
     connection.query(
         `SELECT e.id, e.first_name, e.last_name, r.title, r.salary,COALESCE( CONCAT(m.first_name, " ", m.last_name),'') AS manager FROM employee AS e LEFT JOIN role AS r ON e.role_id = r.id LEFT JOIN department AS d ON r.department_id = d.id LEFT JOIN employee AS m ON m.id = e.manager_id`, (err, res) => {
             if (err) {
-                throw (err);
+                console.log(error);
             } else {
                 console.table(res);
             }
