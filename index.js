@@ -409,23 +409,9 @@ const removeEmployee = () => {
         promptUser();
     })
 };
-
-const viewDeptBudget = () => {
-    connection.query(
-        `SELECT d.name, sum(coalesce(r.salary, 0)) budget 
-    FROM department AS d 
-    left join role AS r on d.id = r.department_id
-    left join employee AS e on e.role_id = r.id 
-    group by d.id;`, (err, res) => {
-        if (err) {
-            throw (err);
-        } else {
-            console.table(res);
-            mainMenu();
-        }
-    })
-};
-
+const viewDeptBudget =() =>{
+    //figure this out later
+}
 connection.connect((err) => {
     if (err) throw err;
     promptUser();
