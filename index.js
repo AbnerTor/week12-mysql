@@ -78,6 +78,8 @@ const promptUser = () => {
         });
 }
 
+
+
 const addEmployee = () => {
 
     let empFirstName;
@@ -326,7 +328,7 @@ const updateEmployeeRole = () => {
                 {
                     name: "employees",
                     type: "list",
-                    message: "Which employee would you like to edit?",
+                    message: "Which employee would you like to update?",
                     choices: empArr
                 }
             ]).then((answer) => {
@@ -400,9 +402,9 @@ const removeEmployee = () => {
         promptUser();
     })
 };
-const viewDeptBudget =() =>{
-    //figure this out later
-}
+// const viewDeptBudget =() =>{
+//     //figure this out later
+// }
 connection.connect((err) => {
     if (err) throw err;
     promptUser();
