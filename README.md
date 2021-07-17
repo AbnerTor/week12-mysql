@@ -26,7 +26,9 @@ This project covered under a MIT License.
 ## Description
 
 This is a command line interface that allows a person to keep track of employees by inputing data such as salary, department, and manager information.
+
 ![Screenshot](assets/appss1.PNG)
+
 Here it is in action: https://drive.google.com/file/d/17dxecByxUngnvfgH32V9F4nFkTZiQiZt/view
 
 
